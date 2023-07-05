@@ -106,6 +106,7 @@ class FoilPlot(Matplot):
 
     def update_figure(self):
         self.load()
+        self.aces.clear()
         self.axes.plot(self.Fx, self.Fy)
         self.draw()
 
@@ -159,7 +160,7 @@ class DataPlot(Matplot):
 
 
     def update_figure(self,xlim = None, ylim = None, xlabel = "xlabel", ylabel = "ylabel",line_width = 0):
-        # self.axes.re
+        self.axes.clear()
         self.axes.plot(self.datax, self.datay,marker='o',linewidth=line_width)
         self.axes.set_aspect("auto")
         if xlim != None:
@@ -531,16 +532,16 @@ class DataPlotWidget(QWidget):
 
         self.Fconplot.datax = range(n_sample,0,-1)
         self.Fconplot.datay = ga.sortedlist[:,0]
-        self.Fconplot.update_figure(xlim = n_sample, ylabel = "Value of Evaluating Function",xlabel = "Individual")
+        self.Fconplot.update_figure(xlim = [0,n_sample], ylabel = "Value of Evaluating Function",xlabel = "Individual")
         self.conv_CLplot.datax = range(n_sample,0,-1)
         self.conv_CLplot.datay = ga.sortedlist[:,3]
-        self.conv_CLplot.update_figure(xlim = n_sample, ylabel = "CL",xlabel = "Individual",ylim = [ga.CL_forplot*0.7,ga.CL_forplot*1.3])
+        self.conv_CLplot.update_figure(xlim = [0,n_sample], ylabel = "CL",xlabel = "Individual",ylim = [ga.CL_forplot*0.7,ga.CL_forplot*1.3])
         self.conv_CLCDplot.datax = range(n_sample,0,-1)
         self.conv_CLCDplot.datay = ga.sortedlist[:,1]
-        self.conv_CLCDplot.update_figure(xlim = n_sample, ylabel = "CL/Cd",xlabel = "Individual")
+        self.conv_CLCDplot.update_figure(xlim = [0,n_sample], ylabel = "CL/Cd",xlabel = "Individual")
         self.conv_thnplot.datax = range(n_sample,0,-1)
         self.conv_thnplot.datay = ga.sortedlist[:,2] * 100
-        self.conv_thnplot.update_figure(xlim = n_sample, ylim = [ga.thn_forplot*70,ga.thn_forplot*130] ,ylabel = "Thickness",xlabel = "Individual")
+        self.conv_thnplot.update_figure(xlim = [0,n_sample], ylim = [ga.thn_forplot*70,ga.thn_forplot*130] ,ylabel = "Thickness",xlabel = "Individual")
 
         self.evo_Fconplot.datax = ga.history_generation
 
