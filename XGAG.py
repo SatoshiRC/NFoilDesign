@@ -1034,7 +1034,7 @@ class GeneteticAlgolithm():
                 anlydata = numpy.loadtxt(fname,skiprows=12)
 
                 if len(anlydata.shape)==2:
-                    anlydata = analydata[-1,:]
+                    anlydata = anlydata[-1,:]
                 os.remove(fname)
 
                 if numpy.isnan(float(sum(anlydata))):
@@ -1142,7 +1142,7 @@ class GeneteticAlgolithm():
                 anlydata = numpy.loadtxt(fname,skiprows=12)
 
                 if len(anlydata.shape)==2:
-                    anlydata = analydata[-1,:]
+                    anlydata = anlydata[-1,:]
                 os.remove(fname)
 
                 if numpy.isnan(float(sum(anlydata))):
