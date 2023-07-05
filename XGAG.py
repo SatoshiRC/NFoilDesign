@@ -55,8 +55,8 @@ class Matplot(matplotlib.backends.backend_qtagg.FigureCanvasQTAgg):
         self.setParent(parent)
 
         matplotlib.backends.backend_qtagg.FigureCanvasQTAgg.setSizePolicy(self,
-                                   QtWidgets.QSizePolicy.Policy.Expanding,
-                                   QtWidgets.QSizePolicy.Policy.Expanding)
+                                   QtWidgets.QSizePolicy.Policy.MinimumExpanding,
+                                   QtWidgets.QSizePolicy.Policy.MinimumExpanding)
         matplotlib.backends.backend_qtagg.FigureCanvasQTAgg.updateGeometry(self)
 
     def compute_initial_figure(self):
@@ -159,6 +159,7 @@ class DataPlot(Matplot):
 
 
     def update_figure(self,xlim = None, ylim = None, xlabel = "xlabel", ylabel = "ylabel",line_width = 0):
+        # self.axes.re
         self.axes.plot(self.datax, self.datay,marker='o',linewidth=line_width)
         self.axes.set_aspect("auto")
         if xlim != None:
@@ -670,7 +671,8 @@ class GeneteticAlgolithm():
             foil = "foil.foil"
 
             ps = subprocess.Popen(['xfoil'],stdin=subprocess.PIPE,stdout=None,stderr=None,shell=True)
-            pipe = bytes("\nplop\n g\n\n norm\n load {load} \n pane\n GDES\n DERO\n eXec\n \n ppar \n n 300 \n \n \n save foil.foil\n y \n \n quit \n" .format(load=foil),"ascii")
+            # pipe = bytes("\nplop\n g\n\n norm\n load {load} \n pane\n GDES\n DERO\n eXec\n \n ppar \n n 300 \n \n \n save foil.foil\n y \n \n quit \n" .format(load=foil),"ascii")
+            pipe = bytes("\n norm\n load {load} \n pane\n GDES\n DERO\n eXec\n \n ppar \n n 300 \n \n \n save foil.foil\n y \n \n quit \n" .format(load=foil),"ascii")
             res = ps.communicate(pipe)
 
             foil = numpy.loadtxt("foil.foil",skiprows=1)
@@ -858,8 +860,9 @@ class GeneteticAlgolithm():
                     fname = "a0_pwrt.dat"
                     foil = "xfoil.foil"
 
-                    ps = subprocess.Popen(['xfoil'],stdin=subprocess.PIPE,stdout=None,stderr=None,shell=True)
-                    pipe = bytes("\nplop\n g\n\n load {load} \n oper\n visc {Re} \n iter 100\n pacc\n {filename} \n \n alfa{alpha}\n \n quit\n".format(load=foil,Re=Re,filename=fname,alpha=alpha),"ascii")
+                    ps = subprocess.Popen(['./xfoil'],stdin=subprocess.PIPE,stdout=None,stderr=None,shell=True)
+                    # pipe = bytes("\nplop\n g\n\n load {load} \n oper\n visc {Re} \n iter 100\n pacc\n {filename} \n \n alfa{alpha}\n \n quit\n".format(load=foil,Re=Re,filename=fname,alpha=alpha),"ascii")
+                    pipe = bytes("\nload {load} \n oper\n visc {Re} \n iter 100\n pacc\n {filename} \n \n alfa{alpha}\n \n quit\n".format(load=foil,Re=Re,filename=fname,alpha=alpha),"ascii")
                     res = ps.communicate(pipe)
 
 
@@ -1018,7 +1021,8 @@ class GeneteticAlgolithm():
 
 
                 ps = subprocess.Popen(['xfoil'],stdin=subprocess.PIPE,stdout=None,stderr=None,shell=True)
-                pipe = bytes("\nplop\n g\n\n load {load} \n oper\n visc {Re} \n iter 100\n pacc\n {filename} \n \n alfa{alpha}\n \n quit\n".format(load=foil,Re=Re,filename=fname,alpha=alpha),"ascii")
+                # pipe = bytes("\nplop\n g\n\n load {load} \n oper\n visc {Re} \n iter 100\n pacc\n {filename} \n \n alfa{alpha}\n \n quit\n".format(load=foil,Re=Re,filename=fname,alpha=alpha),"ascii")
+                pipe = bytes("\nload {load} \n oper\n visc {Re} \n iter 100\n pacc\n {filename} \n \n alfa{alpha}\n \n quit\n".format(load=foil,Re=Re,filename=fname,alpha=alpha),"ascii")
                 res = ps.communicate(pipe)
 
 
@@ -1125,7 +1129,8 @@ class GeneteticAlgolithm():
 
 
                 ps = subprocess.Popen(['xfoil'],stdin=subprocess.PIPE,stdout=None,stderr=None,shell=True)
-                pipe = bytes("\nplop\n g\n\n load {load} \n oper\n visc {Re} \n iter 100\n pacc\n {filename} \n \n alfa{alpha}\n \n quit\n".format(load=foil,Re=Re,filename=fname,alpha=alpha),"ascii")
+                # pipe = bytes("\nplop\n g\n\n load {load} \n oper\n visc {Re} \n iter 100\n pacc\n {filename} \n \n alfa{alpha}\n \n quit\n".format(load=foil,Re=Re,filename=fname,alpha=alpha),"ascii")
+                pipe = bytes("\nload {load} \n oper\n visc {Re} \n iter 100\n pacc\n {filename} \n \n alfa{alpha}\n \n quit\n".format(load=foil,Re=Re,filename=fname,alpha=alpha),"ascii")
                 res = ps.communicate(pipe)
 
 
@@ -1305,7 +1310,8 @@ class Export_Filt_Foil():
         foil = "export.foil"
 
         ps = subprocess.Popen(['xfoil'],stdin=subprocess.PIPE,stdout=None,stderr=None,shell=True)
-        pipe = bytes("\nplop\n g\n\n load {load} \n oper\n alfa{alpha}\n \n mdes \n aq {alpha} \n filt \n exec\n\n pcop \n save export.foil \n Y \n quit\n".format(load=foil,alpha=alpha),"ascii")
+        # pipe = bytes("\nplop\n g\n\n load {load} \n oper\n alfa{alpha}\n \n mdes \n aq {alpha} \n filt \n exec\n\n pcop \n save export.foil \n Y \n quit\n".format(load=foil,alpha=alpha),"ascii")
+        pipe = bytes("\n load {load} \n oper\n alfa{alpha}\n \n mdes \n aq {alpha} \n filt \n exec\n\n pcop \n save export.foil \n Y \n quit\n".format(load=foil,alpha=alpha),"ascii")
         res = ps.communicate(pipe)
 
         foil = numpy.loadtxt("export.foil",skiprows=1)

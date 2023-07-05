@@ -219,3 +219,10 @@ TubdotGag.py
 
 #build
 setup.py
+
+#INI / FOIL
+*.ini
+*.foil
+
+#temporary file dir
+temp/
