@@ -106,7 +106,7 @@ class FoilPlot(Matplot):
 
     def update_figure(self):
         self.load()
-        self.aces.clear()
+        self.axes.clear()
         self.axes.plot(self.Fx, self.Fy)
         self.draw()
 
@@ -117,15 +117,18 @@ class FoilPlot(Matplot):
             foil = numpy.loadtxt(self.filename,skiprows=1)
         self.Fx = foil[:,0]
         self.Fy = foil[:,1]
+        self.axes.clear()
         self.axes.plot(self.Fx, self.Fy)
         self.draw()
 
 
     def update_figure3(self):
+        self.axes.clear()
         self.axes.plot(self.Fx, self.Fy)
         self.draw()
 
     def update_figure_mult(self,x,y):
+        self.axes.clear()
         self.axes.plot(x,y)
         self.axes.set_ylim([-0.1,0.1])
         self.draw()
